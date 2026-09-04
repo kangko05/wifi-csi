@@ -1,3 +1,4 @@
+#include <string.h>
 #include <unistd.h>
 
 #include "esp_err.h"
@@ -33,8 +34,12 @@
 #define ESP_IF_WIFI_STA ESP_MAC_WIFI_STA
 #endif
 
+// INFO: target mac 10:bd:a3:d6:5f:40
+#define TARGET_MAC_ADDR {0x10, 0xbd, 0xa3, 0xd6, 0x5f, 0x40}
+
 static const uint8_t CONFIG_CSI_SEND_MAC[] = {0x1a, 0x00, 0x00,
                                               0x00, 0x00, 0x00};
+
 static const char *TAG = "csi-tx";
 
 static void wifi_init() {
@@ -100,11 +105,12 @@ void app_main(void) {
 
     wifi_init();
 
+    // INFO: target mac 10:bd:a3:d6:5f:40
     esp_now_peer_info_t peer = {
         .channel = CONFIG_LESS_INTERFERENCE_CHANNEL,
         .ifidx = WIFI_IF_STA,
         .encrypt = false,
-        .peer_addr = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff},
+        .peer_addr = TARGET_MAC_ADDR,
     };
     wifi_esp_now_init(peer);
 

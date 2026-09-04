@@ -76,7 +76,7 @@ static void wifi_init() {
                                              WIFI_SECOND_CHAN_ABOVE));
     }
 
-    ESP_ERROR_CHECK(esp_wifi_set_mac(WIFI_IF_STA, CONFIG_CSI_SEND_MAC));
+    // ESP_ERROR_CHECK(esp_wifi_set_mac(WIFI_IF_STA, CONFIG_CSI_SEND_MAC));
 }
 
 static void wifi_esp_now_init(esp_now_peer_info_t peer) {
@@ -230,7 +230,6 @@ void app_main() {
      *        ESP-NOW protocol see:
      * https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html
      */
-
     esp_now_peer_info_t peer = {
         .channel = CONFIG_LESS_INTERFERENCE_CHANNEL,
         .ifidx = WIFI_IF_STA,
@@ -239,6 +238,12 @@ void app_main() {
     };
 
     wifi_esp_now_init(peer);
+
+    // check mac addr
+    // uint8_t my_mac[6];
+    // if (esp_wifi_get_mac(WIFI_IF_STA, my_mac) == ESP_OK) {
+    //     ESP_LOGI(TAG, "mymac = " MACSTR, MAC2STR(my_mac));
+    // }
 
     wifi_csi_init();
 }
