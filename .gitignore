@@ -1,0 +1,10 @@
+# ESP-IDF build output
+build/
+sdkconfig.old
+
+# IDF Component Manager
+managed_components/
+dependencies.lock
+
+# Editor/tooling caches
+.cache/
