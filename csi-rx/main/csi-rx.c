@@ -106,10 +106,12 @@ static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
     float compensate_gain = 1.0f;
     static uint8_t agc_gain = 0;
     static int8_t fft_gain = 0;
+
 #if CONFIG_GAIN_CONTROL
     static uint8_t agc_gain_baseline = 0;
     static int8_t fft_gain_baseline = 0;
     esp_csi_gain_ctrl_get_rx_gain(rx_ctrl, &agc_gain, &fft_gain);
+
     if (s_count < 100) {
         esp_csi_gain_ctrl_record_rx_gain(agc_gain, fft_gain);
     } else if (s_count == 100) {
@@ -129,6 +131,7 @@ static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
 #endif
 
     uint32_t rx_id = *(uint32_t *)(info->payload + 15);
+
 #if CONFIG_IDF_TARGET_ESP32C5 || CONFIG_IDF_TARGET_ESP32C6 ||                  \
     CONFIG_IDF_TARGET_ESP32C61
     if (!s_count) {
@@ -142,6 +145,7 @@ static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
                MAC2STR(info->mac), rx_ctrl->rssi, rx_ctrl->rate,
                rx_ctrl->noise_floor, fft_gain, agc_gain, rx_ctrl->channel,
                rx_ctrl->timestamp, rx_ctrl->sig_len, rx_ctrl->cur_bb_format);
+
 #else
     if (!s_count) {
         ESP_LOGI(TAG, "================ CSI RECV ================");

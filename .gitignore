@@ -9,3 +9,6 @@ dependencies.lock
 # Editor/tooling caches
 .cache/
 docs/
+
+# Python venv
+.venv
