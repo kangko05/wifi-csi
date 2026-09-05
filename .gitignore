@@ -8,7 +8,11 @@ dependencies.lock
 
 # Editor/tooling caches
 .cache/
-docs/
+.vscode/
 
 # Python venv
 .venv
+__pycache__/
+
+docs/
+data/
